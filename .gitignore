@@ -1,0 +1,57 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# MyPy
+.mypy_cache/
+
+# Pydantic compiled cache (if any)
+*.pydantic
+
+# Coverage reports
+coverage.xml
+
+# SQLite DB (if used and local only)
+*.sqlite3
+*.db
+
+# FastAPI static or temporary files
+static/
+tmp/
