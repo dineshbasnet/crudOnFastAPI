@@ -19,11 +19,9 @@ class TokenBearer(HTTPBearer):
         
         if not self.token_valid:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="Invalid or expired token")
-
-        if token_data['refresh']:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="Please provide access token")
-
-            
+        
+        self.verify_token_data(token_data)
+        
         return token_data
     
     def token_valid(self, token:str) -> bool:
@@ -36,8 +34,19 @@ class TokenBearer(HTTPBearer):
         else:
             return False
         
+    def verify_token_data(self,token_data):
+        raise NotImplementedError("Please override this method in child classes")
+        
 class AccessTokenBearer(TokenBearer):
-    pass 
+    def verify_token_data(self,token_data:dict) -> None:
+        if token_data and token_data['refresh']:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Please provide access token")  
 
-class AccessTokenBearer(TokenBearer):
-    pass
+class RefreshTokenBearer(TokenBearer):
+    def verify_token_data(self,token_data:dict) -> None:
+        if token_data and not token_data['refresh']:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Please provide a refresh token") 
